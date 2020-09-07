@@ -2,17 +2,15 @@ import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
 
-
-
 class TicTacToe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
       xTurn: true,
-    }
+    };
   }
-  
+
   afterClick(i) {
     const squares = this.state.squares.slice();
     if (checkIfWon(squares) || squares[i]) {
@@ -24,16 +22,12 @@ class TicTacToe extends React.Component {
       xTurn: !this.state.xTurn,
     });
   }
-  
+
   renderSquare(i) {
     return (
-
       <button className="square" onClick={() => this.afterClick(i)}>
-         {this.state.squares[i]}
+        {this.state.squares[i]}
       </button>
-
-
-      
     );
   }
 
@@ -43,7 +37,7 @@ class TicTacToe extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xTurn ? 'X' : 'O'); 
+      status = 'Next player: ' + (this.state.xTurn ? 'X' : 'O');
     }
 
     return (
@@ -54,7 +48,7 @@ class TicTacToe extends React.Component {
           {this.renderSquare(1)}
           {this.renderSquare(2)}
         </div>
-        
+
         <div>
           {this.renderSquare(3)}
           {this.renderSquare(4)}
@@ -100,8 +94,5 @@ function checkIfWon(squares) {
   }
   return null;
 }
-
-
-
 
 export default App;
