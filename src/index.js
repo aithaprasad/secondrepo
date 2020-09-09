@@ -5,12 +5,12 @@ import './index.css';
 //import TicTacToe from './FuncApp';
 //import parentClass from './parent.js';
 import * as serviceWorker from './serviceWorker';
-import parentClass from './parent';
+import ParentClass from './parent';
 
 ReactDOM.render(
   <React.StrictMode>
     <div className="row">
-      <parentClass />
+      <ParentClass />
     </div>
   </React.StrictMode>,
   document.getElementById('root')
