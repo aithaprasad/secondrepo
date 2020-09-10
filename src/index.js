@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+//import App from './App';
+//import TicTacToe from './FuncApp';
+//import parentClass from './parent.js';
 import * as serviceWorker from './serviceWorker';
+import Parent1Class from './parent1.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <div className="row">
+      <Parent1Class />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

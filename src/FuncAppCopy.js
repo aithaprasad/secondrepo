@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 
 const Square = (props) => {
@@ -9,7 +9,7 @@ const Square = (props) => {
   );
 };
 
-const TicTacToe = () => {
+const TicTacToe1 = (props) => {
   const checkIfWon = (squares) => {
     const winPath = [
       [0, 1, 2],
@@ -33,28 +33,25 @@ const TicTacToe = () => {
     }
     return null;
   };
-
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xTurn, setXturn] = useState(true);
-  const winner = checkIfWon(squares);
+  const winner = checkIfWon(props.squares);
   let status;
   if (winner) {
     status = 'Winner: ' + winner;
   } else {
-    status = 'Next player: ' + (xTurn ? 'X' : 'O');
+    status = 'Next player: ' + (props.xTurn ? 'X' : 'O');
   }
   const afterClick = (i) => {
-    const squares_copy = [...squares];
+    const squares_copy = [...props.squares];
     if (winner || squares_copy[i]) {
       return;
     }
-    squares_copy[i] = xTurn ? 'X' : 'O';
-    setSquares(squares_copy);
-    setXturn(!xTurn);
+    squares_copy[i] = props.xTurn ? 'X' : 'O';
+    props.onSquaresChange(squares_copy);
+    props.onXTurnToggle(!props.xTurn);
   };
 
   const renderSquare = (i) => {
-    return <Square value={squares[i]} onClick={() => afterClick(i)} />;
+    return <Square value={props.squares[i]} onClick={() => afterClick(i)} />;
   };
 
   return (
@@ -80,4 +77,4 @@ const TicTacToe = () => {
     </div>
   );
 };
-export default TicTacToe;
+export default TicTacToe1;

@@ -1,49 +1,41 @@
 import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
+import { ThemeContext } from './thingsContexts';
 
-
-
-class TicTacToe extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xTurn: true,
-    }
+    this.afterClick = this.afterClick.bind(this);
   }
-  
+  static context = React.useContext(ThemeContext);
+  static contextType = ThemeContext;
+
   afterClick(i) {
-    const squares = this.state.squares.slice();
+    const squares = this.context.squares.slice();
     if (checkIfWon(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xTurn ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xTurn: !this.state.xTurn,
-    });
+    squares[i] = this.context.xTurn ? 'X' : 'O';
+    this.context.onXTurnToggle();
+    this.context.onSquaresChange(squares);
   }
-  
+
   renderSquare(i) {
     return (
-
       <button className="square" onClick={() => this.afterClick(i)}>
-         {this.state.squares[i]}
+        {this.context.squares[i]}
       </button>
-
-
-      
     );
   }
 
   render() {
-    const winner = checkIfWon(this.state.squares);
+    const winner = checkIfWon(this.context.squares);
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xTurn ? 'X' : 'O'); 
+      status = 'Next player: ' + (this.context.xTurn ? 'X' : 'O');
     }
 
     return (
@@ -54,7 +46,7 @@ class TicTacToe extends React.Component {
           {this.renderSquare(1)}
           {this.renderSquare(2)}
         </div>
-        
+
         <div>
           {this.renderSquare(3)}
           {this.renderSquare(4)}
@@ -66,16 +58,6 @@ class TicTacToe extends React.Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-      </div>
-    );
-  }
-}
-
-class App extends React.Component {
-  render() {
-    return (
-      <div className="row">
-        <TicTacToe />
       </div>
     );
   }
@@ -100,8 +82,5 @@ function checkIfWon(squares) {
   }
   return null;
 }
-
-
-
 
 export default App;
