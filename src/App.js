@@ -1,38 +1,41 @@
 import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
+import { ThemeContext } from './thingsContexts';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.afterClick = this.afterClick.bind(this);
   }
+  static context = React.useContext(ThemeContext);
+  static contextType = ThemeContext;
 
   afterClick(i) {
-    const squares = this.props.squares.slice();
+    const squares = this.context.squares.slice();
     if (checkIfWon(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.props.xTurn ? 'X' : 'O';
-    this.props.onXTurnToggle();
-    this.props.onSquaresChange(squares);
+    squares[i] = this.context.xTurn ? 'X' : 'O';
+    this.context.onXTurnToggle();
+    this.context.onSquaresChange(squares);
   }
 
   renderSquare(i) {
     return (
       <button className="square" onClick={() => this.afterClick(i)}>
-        {this.props.squares[i]}
+        {this.context.squares[i]}
       </button>
     );
   }
 
   render() {
-    const winner = checkIfWon(this.props.squares);
+    const winner = checkIfWon(this.context.squares);
     let status;
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.props.xTurn ? 'X' : 'O');
+      status = 'Next player: ' + (this.context.xTurn ? 'X' : 'O');
     }
 
     return (

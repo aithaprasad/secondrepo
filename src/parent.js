@@ -12,7 +12,6 @@ const ParentClass = () => {
   const changeSquares = (squares) => {
     setSquares(squares);
   };
-
   const [squares1, setSquares1] = useState(Array(9).fill(null));
   const [xTurn1, setXTurn1] = useState(true);
   const toggle1 = (i) => {
